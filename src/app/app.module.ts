@@ -1,67 +1,73 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  RouteReuseStrategy,
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ShellPage } from './pages/shell/shell.page';
-import { MenulistModule } from './components/menulist/menulist.module';
-@NgModule({
-  declarations: [AppComponent, ShellPage],
-  imports: [
+import { TrackDetailPage } from './pages/track-detail/track-detail.page';
+import { SearchPage } from './pages/search/search.page';
+import { MenulistComponent } from './components/menulist/menulist.component';
+import { MusicCardPlaceholderComponent } from './components/music-card-placeholder/music-card-placeholder.component';
+import { MusicCardComponent } from './components/music-card/music-card.component';
+import { TimePipeModule } from './pipes/ms-to-mins/ms-to-mins.module';
+import { CommonModule } from '@angular/common';
+import { DirectivesModule } from './directives/directives.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ColorThiefService } from './providers/color-thief/color-thief.service';
 
-    ServiceWorkerModule.register('/ngsw-worker.js', {
-      enabled: environment.production
-    }),
+@NgModule({
+  declarations: [
+    AppComponent,
+    ShellPage,
+    SearchPage,
+    TrackDetailPage,
+    MenulistComponent,
+    MusicCardPlaceholderComponent,
+    MusicCardComponent
+  ],
+  imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(
-      [
-        { path: '', component: ShellPage },
-        {
-          path: 'search',
-          loadChildren: './pages/search/search.module#SearchModule'
-        },
-        {
-          path: 'detail/:id',
-          loadChildren:
-            './pages/track-detail/track-detail.module#TrackDetailModule'
-        },
-        { path: '**', redirectTo: '/detail/299608205', pathMatch: 'full' }
-      ],
-      { preloadingStrategy: PreloadAllModules}
-    ),
+    RouterModule.forRoot([
+      { path: '', component: ShellPage },
+      {
+        path: 'search',
+        component: SearchPage
+      },
+      {
+        path: 'detail/:id',
+        component: TrackDetailPage
+      },
+      { path: '**', redirectTo: '/detail/299608205', pathMatch: 'full' }
+    ]),
     IonicModule.forRoot(),
     HttpClientModule,
     IonicStorageModule.forRoot({
       name: '__startTrack'
     }),
-    MenulistModule
+    TimePipeModule,
+    CommonModule,
+    DirectivesModule,
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     StatusBar,
-    SplashScreen
+    SplashScreen,
+    ColorThiefService
+  ],
+  entryComponents: [
+    MenulistComponent,
+    MusicCardPlaceholderComponent,
+    MusicCardComponent
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-  // constructor( router: Router){
-  //  router.events.pipe(filter(e => e instanceof Scroll)).subscribe(
-  //   e => console.log(e),
-  //   err => console.log('err', err),
-  //   () => console.log('done')
-  //  )
-  // }
-}
+export class AppModule {}
