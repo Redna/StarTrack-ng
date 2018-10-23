@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  RouteReuseStrategy,
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
+import { RouteReuseStrategy, RouterModule, PreloadAllModules } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ShellPage } from './pages/shell/shell.page';
@@ -19,10 +13,6 @@ import { MenulistModule } from './components/menulist/menulist.module';
 @NgModule({
   declarations: [AppComponent, ShellPage],
   imports: [
-
-    ServiceWorkerModule.register('/ngsw-worker.js', {
-      enabled: environment.production
-    }),
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(
@@ -34,18 +24,15 @@ import { MenulistModule } from './components/menulist/menulist.module';
         },
         {
           path: 'detail/:id',
-          loadChildren:
-            './pages/track-detail/track-detail.module#TrackDetailModule'
+          loadChildren: './pages/track-detail/track-detail.module#TrackDetailModule'
         },
         { path: '**', redirectTo: '/detail/299608205', pathMatch: 'full' }
       ],
-      { preloadingStrategy: PreloadAllModules}
+      { preloadingStrategy: PreloadAllModules }
     ),
     IonicModule.forRoot(),
     HttpClientModule,
-    IonicStorageModule.forRoot({
-      name: '__startTrack'
-    }),
+    IonicStorageModule.forRoot({ name: '__startTrack' }),
     MenulistModule
   ],
   providers: [
@@ -55,13 +42,4 @@ import { MenulistModule } from './components/menulist/menulist.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-  // constructor( router: Router){
-  //  router.events.pipe(filter(e => e instanceof Scroll)).subscribe(
-  //   e => console.log(e),
-  //   err => console.log('err', err),
-  //   () => console.log('done')
-  //  )
-  // }
-}
+export class AppModule {}

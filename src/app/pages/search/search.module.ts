@@ -8,11 +8,11 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   imports: [
-    CommonModule,
     IonicModule,
-    RouterModule.forChild([{ path: '', component: SearchPage }]),
+    CommonModule,
     TimePipeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild([{ path: '', component: SearchPage }]),
   ],
   declarations: [SearchPage],
 })
