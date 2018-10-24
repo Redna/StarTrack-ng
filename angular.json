@@ -61,7 +61,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": true
+              "serviceWorker": false
             }
           }
         },
@@ -146,14 +146,15 @@
               "devServerTarget": "app:serve:production"
             }
           }
-
         }
       }
     }
   },
-
   "cli": {
-    "defaultCollection": "@ionic/schematics-angular"
+    "defaultCollection": "@ionic/schematics-angular",
+    "warnings": {
+      "typescriptMismatch": false
+    }
   },
   "schematics": {
     "@ionic/schematics-angular:component": {
